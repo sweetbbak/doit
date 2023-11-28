@@ -1,6 +1,6 @@
 <p></p>
 <p align="center">
-  <img src="doit once.png" />
+  <img src="doit-once.png" />
 </p>
 
 ## What? and Why?
