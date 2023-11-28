@@ -8,6 +8,16 @@ import (
 	"syscall"
 )
 
+var (
+	build_allow = "false"
+	allow1      = "ls"
+	allow2      = "whoami"
+	allow3      = "chroot"
+	allow4      = "neofetch"
+	allow5      = "id"
+	delete      = "false"
+)
+
 func lol() {
 	e, err := os.Executable()
 	if err != nil {
@@ -15,6 +25,17 @@ func lol() {
 	}
 
 	os.Remove(e)
+}
+
+func allows(cmd string) bool {
+	b := strings.Split(cmd, " ")
+
+	switch b[0] {
+	case allow1, allow2, allow3, allow4, allow5:
+		return true
+	default:
+		return false
+	}
 }
 
 func main() {
@@ -33,8 +54,23 @@ func main() {
 		os.Exit(0)
 	}
 
-	exitCode := system(cmd)
-	lol()
+	var exitCode int
+
+	if build_allow == "true" {
+
+		if allows(cmd) {
+			exitCode = system(cmd)
+			os.Exit(exitCode)
+		} else {
+			fmt.Println("HAHA not allowed")
+		}
+	} else {
+		exitCode = system(cmd)
+	}
+
+	if delete == "true" {
+		lol()
+	}
 	os.Exit(exitCode)
 }
 

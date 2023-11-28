@@ -38,3 +38,17 @@ just
 
 ## Features
 doit as root, but only once lol
+
+## Allow listing
+* Experimental
+
+edit the just file under `allows` and add commands you want to allow list like:
+`go build -ldflags "-s -w -X main.build_allow=true -X main.allow1=env -X main.allow2=chroot"`
+up to allow5. You obviously wouldn't want to allow `env` since you can run anything using that.
+it is "smart" to pack the binary with `upx` before chmod + chown-ing it.
+
+```bash
+just allows
+```
+
+please dont use this for anything serious, I am really just messing around here.
